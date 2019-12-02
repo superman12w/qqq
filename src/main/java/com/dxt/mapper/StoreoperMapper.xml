@@ -1,0 +1,721 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dxt.mapper.StoreoperMapper">
+  <resultMap id="BaseResultMap" type="com.dxt.pojo.Storeoper">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="EMPid" jdbcType="INTEGER" property="empid" />
+    <result column="OPERTIME" jdbcType="TIMESTAMP" property="opertime" />
+    <result column="STOREid" jdbcType="INTEGER" property="storeid" />
+    <result column="GOODSid" jdbcType="INTEGER" property="goodsid" />
+    <result column="NUM" jdbcType="INTEGER" property="num" />
+    <result column="TYPE" jdbcType="CHAR" property="type" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, EMPid, OPERTIME, STOREid, GOODSid, NUM, TYPE
+  </sql>
+  <select id="selectByExample" parameterType="com.dxt.pojo.StoreoperExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from storeoper
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from storeoper
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from storeoper
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dxt.pojo.StoreoperExample">
+    delete from storeoper
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dxt.pojo.Storeoper">
+    insert into storeoper (id, EMPid, OPERTIME, 
+      STOREid, GOODSid, NUM, 
+      TYPE)
+    values (#{id,jdbcType=INTEGER}, #{empid,jdbcType=INTEGER}, #{opertime,jdbcType=TIMESTAMP}, 
+      #{storeid,jdbcType=INTEGER}, #{goodsid,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, 
+      #{type,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dxt.pojo.Storeoper">
+    insert into storeoper
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="empid != null">
+        EMPid,
+      </if>
+      <if test="opertime != null">
+        OPERTIME,
+      </if>
+      <if test="storeid != null">
+        STOREid,
+      </if>
+      <if test="goodsid != null">
+        GOODSid,
+      </if>
+      <if test="num != null">
+        NUM,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="empid != null">
+        #{empid,jdbcType=INTEGER},
+      </if>
+      <if test="opertime != null">
+        #{opertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeid != null">
+        #{storeid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsid != null">
+        #{goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dxt.pojo.StoreoperExample" resultType="java.lang.Long">
+    select count(*) from storeoper
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update storeoper
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.empid != null">
+        EMPid = #{record.empid,jdbcType=INTEGER},
+      </if>
+      <if test="record.opertime != null">
+        OPERTIME = #{record.opertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.storeid != null">
+        STOREid = #{record.storeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsid != null">
+        GOODSid = #{record.goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="record.num != null">
+        NUM = #{record.num,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null">
+        TYPE = #{record.type,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update storeoper
+    set id = #{record.id,jdbcType=INTEGER},
+      EMPid = #{record.empid,jdbcType=INTEGER},
+      OPERTIME = #{record.opertime,jdbcType=TIMESTAMP},
+      STOREid = #{record.storeid,jdbcType=INTEGER},
+      GOODSid = #{record.goodsid,jdbcType=INTEGER},
+      NUM = #{record.num,jdbcType=INTEGER},
+      TYPE = #{record.type,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dxt.pojo.Storeoper">
+    update storeoper
+    <set>
+      <if test="empid != null">
+        EMPid = #{empid,jdbcType=INTEGER},
+      </if>
+      <if test="opertime != null">
+        OPERTIME = #{opertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeid != null">
+        STOREid = #{storeid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsid != null">
+        GOODSid = #{goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        NUM = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        TYPE = #{type,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dxt.pojo.Storeoper">
+    update storeoper
+    set EMPid = #{empid,jdbcType=INTEGER},
+      OPERTIME = #{opertime,jdbcType=TIMESTAMP},
+      STOREid = #{storeid,jdbcType=INTEGER},
+      GOODSid = #{goodsid,jdbcType=INTEGER},
+      NUM = #{num,jdbcType=INTEGER},
+      TYPE = #{type,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.dxt.pojo.Storeoper">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="EMPid" jdbcType="INTEGER" property="empid" />
+    <result column="OPERTIME" jdbcType="TIMESTAMP" property="opertime" />
+    <result column="STOREid" jdbcType="INTEGER" property="storeid" />
+    <result column="GOODSid" jdbcType="INTEGER" property="goodsid" />
+    <result column="NUM" jdbcType="INTEGER" property="num" />
+    <result column="TYPE" jdbcType="CHAR" property="type" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, EMPid, OPERTIME, STOREid, GOODSid, NUM, TYPE
+  </sql>
+  <select id="selectByExample" parameterType="com.dxt.pojo.StoreoperExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from storeoper
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from storeoper
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from storeoper
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dxt.pojo.StoreoperExample">
+    delete from storeoper
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dxt.pojo.Storeoper">
+    insert into storeoper (id, EMPid, OPERTIME, 
+      STOREid, GOODSid, NUM, 
+      TYPE)
+    values (#{id,jdbcType=INTEGER}, #{empid,jdbcType=INTEGER}, #{opertime,jdbcType=TIMESTAMP}, 
+      #{storeid,jdbcType=INTEGER}, #{goodsid,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, 
+      #{type,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dxt.pojo.Storeoper">
+    insert into storeoper
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="empid != null">
+        EMPid,
+      </if>
+      <if test="opertime != null">
+        OPERTIME,
+      </if>
+      <if test="storeid != null">
+        STOREid,
+      </if>
+      <if test="goodsid != null">
+        GOODSid,
+      </if>
+      <if test="num != null">
+        NUM,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="empid != null">
+        #{empid,jdbcType=INTEGER},
+      </if>
+      <if test="opertime != null">
+        #{opertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeid != null">
+        #{storeid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsid != null">
+        #{goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dxt.pojo.StoreoperExample" resultType="java.lang.Long">
+    select count(*) from storeoper
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update storeoper
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.empid != null">
+        EMPid = #{record.empid,jdbcType=INTEGER},
+      </if>
+      <if test="record.opertime != null">
+        OPERTIME = #{record.opertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.storeid != null">
+        STOREid = #{record.storeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsid != null">
+        GOODSid = #{record.goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="record.num != null">
+        NUM = #{record.num,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null">
+        TYPE = #{record.type,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update storeoper
+    set id = #{record.id,jdbcType=INTEGER},
+      EMPid = #{record.empid,jdbcType=INTEGER},
+      OPERTIME = #{record.opertime,jdbcType=TIMESTAMP},
+      STOREid = #{record.storeid,jdbcType=INTEGER},
+      GOODSid = #{record.goodsid,jdbcType=INTEGER},
+      NUM = #{record.num,jdbcType=INTEGER},
+      TYPE = #{record.type,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dxt.pojo.Storeoper">
+    update storeoper
+    <set>
+      <if test="empid != null">
+        EMPid = #{empid,jdbcType=INTEGER},
+      </if>
+      <if test="opertime != null">
+        OPERTIME = #{opertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeid != null">
+        STOREid = #{storeid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsid != null">
+        GOODSid = #{goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        NUM = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        TYPE = #{type,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dxt.pojo.Storeoper">
+    update storeoper
+    set EMPid = #{empid,jdbcType=INTEGER},
+      OPERTIME = #{opertime,jdbcType=TIMESTAMP},
+      STOREid = #{storeid,jdbcType=INTEGER},
+      GOODSid = #{goodsid,jdbcType=INTEGER},
+      NUM = #{num,jdbcType=INTEGER},
+      TYPE = #{type,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.dxt.pojo.Storeoper">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="EMPid" jdbcType="INTEGER" property="empid" />
+    <result column="OPERTIME" jdbcType="TIMESTAMP" property="opertime" />
+    <result column="STOREid" jdbcType="INTEGER" property="storeid" />
+    <result column="GOODSid" jdbcType="INTEGER" property="goodsid" />
+    <result column="NUM" jdbcType="INTEGER" property="num" />
+    <result column="TYPE" jdbcType="CHAR" property="type" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, EMPid, OPERTIME, STOREid, GOODSid, NUM, TYPE
+  </sql>
+  <select id="selectByExample" parameterType="com.dxt.pojo.StoreoperExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from storeoper
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from storeoper
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from storeoper
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dxt.pojo.StoreoperExample">
+    delete from storeoper
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dxt.pojo.Storeoper">
+    insert into storeoper (id, EMPid, OPERTIME, 
+      STOREid, GOODSid, NUM, 
+      TYPE)
+    values (#{id,jdbcType=INTEGER}, #{empid,jdbcType=INTEGER}, #{opertime,jdbcType=TIMESTAMP}, 
+      #{storeid,jdbcType=INTEGER}, #{goodsid,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, 
+      #{type,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dxt.pojo.Storeoper">
+    insert into storeoper
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="empid != null">
+        EMPid,
+      </if>
+      <if test="opertime != null">
+        OPERTIME,
+      </if>
+      <if test="storeid != null">
+        STOREid,
+      </if>
+      <if test="goodsid != null">
+        GOODSid,
+      </if>
+      <if test="num != null">
+        NUM,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="empid != null">
+        #{empid,jdbcType=INTEGER},
+      </if>
+      <if test="opertime != null">
+        #{opertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeid != null">
+        #{storeid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsid != null">
+        #{goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dxt.pojo.StoreoperExample" resultType="java.lang.Long">
+    select count(*) from storeoper
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update storeoper
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.empid != null">
+        EMPid = #{record.empid,jdbcType=INTEGER},
+      </if>
+      <if test="record.opertime != null">
+        OPERTIME = #{record.opertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.storeid != null">
+        STOREid = #{record.storeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsid != null">
+        GOODSid = #{record.goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="record.num != null">
+        NUM = #{record.num,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null">
+        TYPE = #{record.type,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update storeoper
+    set id = #{record.id,jdbcType=INTEGER},
+      EMPid = #{record.empid,jdbcType=INTEGER},
+      OPERTIME = #{record.opertime,jdbcType=TIMESTAMP},
+      STOREid = #{record.storeid,jdbcType=INTEGER},
+      GOODSid = #{record.goodsid,jdbcType=INTEGER},
+      NUM = #{record.num,jdbcType=INTEGER},
+      TYPE = #{record.type,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dxt.pojo.Storeoper">
+    update storeoper
+    <set>
+      <if test="empid != null">
+        EMPid = #{empid,jdbcType=INTEGER},
+      </if>
+      <if test="opertime != null">
+        OPERTIME = #{opertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeid != null">
+        STOREid = #{storeid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsid != null">
+        GOODSid = #{goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        NUM = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        TYPE = #{type,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dxt.pojo.Storeoper">
+    update storeoper
+    set EMPid = #{empid,jdbcType=INTEGER},
+      OPERTIME = #{opertime,jdbcType=TIMESTAMP},
+      STOREid = #{storeid,jdbcType=INTEGER},
+      GOODSid = #{goodsid,jdbcType=INTEGER},
+      NUM = #{num,jdbcType=INTEGER},
+      TYPE = #{type,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

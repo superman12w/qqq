@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <context:component-scan base-package="com.dxt"></context:component-scan>
+    <!-- 1. 数据源 : DriverManagerDataSource -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/erp?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+    </bean>
+    <!-- =============================创建spring和mybatis整合后用的工厂对象 -->
+            <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+            <!-- 指定该工厂需要的数据源 -->
+            <property name="dataSource" ref="dataSource"></property>
+            <!-- 指定mybatis框架的主配置文件路径，mybatis框架由spring框架来启动 -->
+            <property name="configLocation" value="classpath:mybatis-config.xml"></property>
+            <!--配置mybatis 插件-->
+            <property name="plugins">
+                <set>
+                    <!--配置pageHelper 分页插件-->
+                    <bean class="com.github.pagehelper.PageInterceptor">
+                        <property name="properties">
+                            <props>
+                                <!--方言：-->
+                                <prop key="helperDialect">mysql</prop>
+                            </props>
+                        </property>
+                    </bean>
+                </set>
+            </property>
+        </bean>
+       <!--配置扫描器 将mybaits接口实现到ioc容器中-->
+        <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+            <!--扫描所以的dao接口的实现 加入到ioc容器中-->
+            <property name="basePackage" value="com.dxt."></property>
+        </bean>
+    <!--===================================================================-->
+    <!--事务管理===========================================-->
+            <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+              <!--控制数据源-->
+                <property name="dataSource" ref="dataSource"></property>
+            </bean>
+       <!--开启基于注解的事务 使用xml配置形式的事务-->
+        <aop:config>
+            <!--切入点表达式-->
+            <aop:pointcut id="qer" expression="execution(* com.dxt..*(..))"/>
+             <!--配置事务增强-->
+             <aop:advisor advice-ref="tx" pointcut-ref="qer"></aop:advisor>
+        </aop:config>
+    <!--配置事务增强-->
+       <tx:advice id="tx">
+           <tx:attributes>
+               <!--所有方法都是事务方法-->
+               <tx:method name="*"/>
+               <!--以get开始的所有方法-->
+               <tx:method name="get*" read-only="true"/>
+           </tx:attributes>
+       </tx:advice>
+    <!--spring配置文件的核心点（数据源，与mabatis的整合 事务控制）-->
+</beans>
